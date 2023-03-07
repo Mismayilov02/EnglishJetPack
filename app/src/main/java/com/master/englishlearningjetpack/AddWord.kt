@@ -36,11 +36,11 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun addWordScreen( navController: NavController,myId: Int) {
+fun addWordScreen(navController: NavController, myId: Int) {
 
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
-    val myRoomDatabase = MyRoomDatabase.getDatabase(context)
+//    val myRoomDatabase = MyRoomDatabase.getDatabase(context)
 
     val viewModel: DatabaseViewModel =
         viewModel(factory = ViewModelFactory(context.applicationContext as Application, null))
@@ -57,7 +57,7 @@ fun addWordScreen( navController: NavController,myId: Int) {
                 .align(Alignment.TopStart)
                 .height(60.dp)
                 .padding(15.dp)
-                .clickable { navController.navigate("showWord/$myId")})
+                .clickable { navController.navigate("showWord/$myId") })
     }
 
     Column(
@@ -72,30 +72,42 @@ fun addWordScreen( navController: NavController,myId: Int) {
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
-        TextField(value = azValues.value,
-            onValueChange = { azValues.value = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp),
-            label = {
-                Text(
-                    text = "Az"
-                )
+        TextField(
+            value = enValues.value,
+            onValueChange = {
+                if (it.lines().size <= 1) {
+                    enValues.value = it
+                }
             },
-            colors = TextFieldDefaults.textFieldColors(disabledLabelColor = Color.Red)
-        )
-
-        TextField(value = enValues.value,
-            onValueChange = { enValues.value = it },
             modifier = Modifier
                 .padding(15.dp)
                 .fillMaxWidth(),
+            maxLines = 1,
             label = {
                 Text(
                     text = "En"
                 )
             },
             colors = TextFieldDefaults.textFieldColors(disabledTextColor = Color.Red)
+        )
+
+        TextField(
+            value = azValues.value,
+            onValueChange = {
+                if (it.lines().size <= 1) {
+                    azValues.value = it
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp),
+            maxLines = 1,
+            label = {
+                Text(
+                    text = "Az"
+                )
+            },
+            colors = TextFieldDefaults.textFieldColors(disabledLabelColor = Color.Red)
         )
 
         Button(
@@ -105,14 +117,13 @@ fun addWordScreen( navController: NavController,myId: Int) {
                     azValues,
                     enValues,
                     context,
-                    myRoomDatabase,
                     myId,
                     focusManager
                 )
             },
             Modifier
                 .fillMaxWidth()
-                .padding(15.dp)
+                .padding(15.dp , 15.dp , 15.dp , 65.dp )
                 .height(50.dp)
         ) {
             Text(text = "Save")
@@ -126,7 +137,6 @@ fun insertWordHistory(
     azValues: MutableState<String>,
     enValues: MutableState<String>,
     context: Context,
-    myRoomDatabase: MyRoomDatabase,
     myId: Int,
     focusManager: FocusManager
 ) {

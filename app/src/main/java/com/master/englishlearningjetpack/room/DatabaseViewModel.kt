@@ -21,15 +21,7 @@ class DatabaseViewModel(application: Application , myId: Int?):AndroidViewModel(
         getAllData = repostory.readAllData()
     }
 
-//    fun addItem(history: History){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repostory.addValues(history)
-//        }
-//    }
 
-//    fun getAllData(){
-//        repostory.getAllData()
-//    }
 
     fun getAllDataByBaseWord(){
         repostory.getAllDataByBaseWord()
@@ -42,12 +34,12 @@ class DatabaseViewModel(application: Application , myId: Int?):AndroidViewModel(
 
 
     fun insertData(history: History, context:Context, myId: Int?){
-        repostory.insertData(history = history , context)
-        if (myId == null){
-            getAllDataByBaseWord()
-        }else{
-            getAllDataById(myId)
-        }
+        repostory.insertData(history = history , context , myId)
+
+    }
+    fun deleteDataById(id:Int){
+       repostory.deleteBaseWord(id)
+
     }
 
 

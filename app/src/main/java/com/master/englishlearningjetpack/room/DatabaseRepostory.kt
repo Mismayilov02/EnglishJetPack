@@ -3,7 +3,6 @@ package com.master.englishlearningjetpack.room
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +16,6 @@ class DatabaseRepostory( var application: Application) {
         myRoomDatabase = MyRoomDatabase.getDatabase(application)!!
         allData = MutableLiveData()
     }
-//    suspend fun addValues(){
-//        historyDao.insert(history)
-//    }
 
     fun readAllData():MutableLiveData<List<History>>{
         return  allData
@@ -37,12 +33,25 @@ class DatabaseRepostory( var application: Application) {
         }
     }
 
+    fun deleteBaseWord(id:Int){
+        val job:Job = CoroutineScope(Dispatchers.Main).launch {
+            myRoomDatabase.historyDao().deleteValueById(id)
+            getAllDataByBaseWord()
+        }
+    }
 
-    fun insertData(history: History , context:Context){
+
+    fun insertData(history: History, context: Context, myId: Int?){
         val job:Job = CoroutineScope(Dispatchers.Main).launch {
 //            allData.value = myRoomDatabase.historyDao().readAll()
             myRoomDatabase.historyDao().insert(history)
             Toast.makeText(context , "Added Catagory" , Toast.LENGTH_SHORT).show()
+
+            if (myId == null){
+                getAllDataByBaseWord()
+            }else{
+                getAllDataBnyMyId(myId)
+            }
         }
     }
 

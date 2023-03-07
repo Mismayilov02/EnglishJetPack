@@ -37,12 +37,42 @@ class MainActivity : ComponentActivity() {
                 ) {
                   sayfaGecisi()
 
-//                    baseShowWord()
                 }
             }
         }
     }
 
+    @Composable
+    fun sayfaGecisi() {
+        val navController = rememberNavController()
+        NavHost(navController = navController, startDestination = "firstScreen") {
+            composable("firstScreen") {
+                baseShowWord(navController = navController)
+            }
+            composable(
+                "addWordScreen/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.IntType })
+            ) {
+                val id = it.arguments?.getInt("id")!!
+                addWordScreen(myId = id , navController = navController)
+            }
+            composable(
+                "showWord/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.IntType })
+            ) {
+                val id = it.arguments?.getInt("id")!!
+                showWordList( navController = navController, myId = id)
+            }
+
+            composable(
+                "questions/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.IntType })
+            ) {
+                val id = it.arguments?.getInt("id")!!
+                questions( navController = navController, myId = id)
+            }
+        }
+    }
 
     @Composable
     fun listeleme() {
@@ -99,38 +129,6 @@ class MainActivity : ComponentActivity() {
     }
 
 
-    @Composable
-    fun sayfaGecisi() {
-        val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = "firstScreen") {
-            composable("firstScreen") {
-                baseShowWord(navController = navController)
-            }
-            composable(
-                "addWordScreen/{id}",
-                arguments = listOf(navArgument("id") { type = NavType.IntType })
-            ) {
-                val id = it.arguments?.getInt("id")!!
-                addWordScreen(myId = id , navController = navController)
-            }
-            composable(
-                "showWord/{id}",
-                arguments = listOf(navArgument("id") { type = NavType.IntType })
-            ) {
-                val id = it.arguments?.getInt("id")!!
-                showWordList( navController = navController, myId = id)
-            }
-        }
-    }
-
-/*fun deneme(){
-
-
-    do{
-
-    }while ()
-}*/
-
 
     @Composable
     fun autoBaseList(navController: NavController) {
@@ -163,26 +161,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-//fun model(){
-//  val x = 5
-//    var y = x.toDouble()
-//
-//}
-//@Composable
-//fun addWordScreen(myid: String) {
-//
-//
-////    allReadHistory(myRoomDatabase)
-//
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Text(text = myid, fontSize = 30.sp)
-//    }
-//}
-
 
     @Composable
     fun Greeting(name: String) {
@@ -193,7 +171,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun DefaultPreview() {
         EnglishLearningJetPackTheme {
-            listeleme()
+           refreshDialog(refreshDailogValue = remember {
+               mutableStateOf(true)
+           })
         }
     }
 //    holder.binding.recyclerRldescription.isVisible = true

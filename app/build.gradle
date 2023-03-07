@@ -77,4 +77,6 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:2.4.3"
 
     implementation "androidx.compose.runtime:runtime-livedata:1.0.0-beta08"
+
+    implementation "com.airbnb.android:lottie-compose:4.1.0"
 }

@@ -19,6 +19,9 @@ interface HistoryDao {
     suspend fun readAllByMyId(myid:Int) : List<History>
 
 
-    @Query("select * from history where myId =0")
+    @Query("select * from history where myId =0 order by id desc")
     suspend fun readAllByBaseWord() : List<History>
+
+    @Query("DELETE FROM history WHERE id = :id or myId = :id")
+    suspend fun deleteValueById(id: Int)
 }
