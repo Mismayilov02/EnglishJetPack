@@ -57,7 +57,13 @@ fun addWordScreen(navController: NavController, myId: Int) {
                 .align(Alignment.TopStart)
                 .height(60.dp)
                 .padding(15.dp)
-                .clickable { navController.navigate("showWord/$myId") })
+                .clickable {
+                    navController.navigate("showWord/$myId") {
+                        popUpTo("addWordScreen") {
+                            inclusive = true
+                        }
+                    }
+                })
     }
 
     Column(
@@ -123,7 +129,7 @@ fun addWordScreen(navController: NavController, myId: Int) {
             },
             Modifier
                 .fillMaxWidth()
-                .padding(15.dp , 15.dp , 15.dp , 65.dp )
+                .padding(15.dp, 15.dp, 15.dp, 65.dp)
                 .height(50.dp)
         ) {
             Text(text = "Save")

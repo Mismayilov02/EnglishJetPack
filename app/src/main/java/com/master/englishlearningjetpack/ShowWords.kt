@@ -53,8 +53,17 @@ fun showWordList(navController: NavController, myId: Int) {
                     contentDescription = "",
                     modifier = Modifier
                         .padding(15.dp)
-                        .height(26.dp).align(Alignment.TopStart)
-                        .clickable { navController.navigate("firstScreen") })
+                        .height(26.dp)
+                        .align(Alignment.TopStart)
+
+
+                        .clickable {
+                            navController.navigate("firstScreen") {
+                                popUpTo("showWord") {
+                                    inclusive = true
+                                }
+                            }
+                        })
 
             }
             Image(
@@ -71,12 +80,20 @@ fun showWordList(navController: NavController, myId: Int) {
                 modifier = Modifier
                     .padding(15.dp)
                     .height(26.dp)
-                    .clickable { if (historyss.value.size >= 4) navController.navigate("questions/$myId") else Toast.makeText(context , "Catagory minimum 4 sozden ibaret olmalidir!" , Toast.LENGTH_SHORT).show() })
+                    .clickable {
+                        if (historyss.value.size >= 4) navController.navigate("questions/$myId") else Toast
+                            .makeText(
+                                context,
+                                "Catagory minimum 4 sozden ibaret olmalidir!",
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
+                    })
 
         }
 
 
-        LazyColumn(modifier = Modifier.padding(5.dp)) {
+        LazyColumn(modifier = Modifier.padding(5.dp , bottom = 10.dp)) {
             items(count = historyss.value.count(), itemContent = {
 
                 val textAz = remember {

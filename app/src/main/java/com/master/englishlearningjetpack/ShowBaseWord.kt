@@ -58,33 +58,39 @@ fun baseShowWord(navController: NavController) {
     var newCatagoryName = remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TextField(value = newCatagoryName.value,
-            onValueChange = {
-                if (it.lines().size <= 1) {
-                    newCatagoryName.value = it
-                }
-            },
+        Row() {
+            TextField(value = newCatagoryName.value,
+                onValueChange = {
+                    if (it.lines().size <= 1) {
+                        newCatagoryName.value = it
+                    }
+                },
 
-            maxLines = 1,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp, 10.dp, 15.dp, 0.dp),
-            label = {
-                Text(
-                    text = "Catagory Name", maxLines = 1
-                )
-            })
-        Button(
-            onClick = { saveValuesDatabase(newCatagoryName, context, viewModel) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp)
-                .height(50.dp)
-        ) {
-            Text(text = "Add Catagory", textAlign = TextAlign.Center)
+                maxLines = 1,
+                modifier = Modifier
+                    .fillMaxWidth(0.85f)
+                    .padding(15.dp, 10.dp, 15.dp, 0.dp),
+                label = {
+                    Text(
+                        text = "Catagory Name", maxLines = 1
+                    )
+                })
+            Image(painter = painterResource(id = R.drawable.add), contentDescription = "" , modifier = Modifier.padding(top = 10.dp  , start = 10.dp).height(35.dp).align(
+                Alignment.CenterVertically
+            ) )
+          /*  Button(
+                onClick = { saveValuesDatabase(newCatagoryName, context, viewModel) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+                    .height(50.dp)
+            ) {
+                Text(text = "Add Catagory", textAlign = TextAlign.Center)
+            }*/
         }
 
-        LazyColumn {
+
+        LazyColumn(modifier = Modifier.padding(top = 15.dp)) {
             items(historys.value.count(), itemContent = {
                 Card(modifier = Modifier
                     .fillMaxWidth()

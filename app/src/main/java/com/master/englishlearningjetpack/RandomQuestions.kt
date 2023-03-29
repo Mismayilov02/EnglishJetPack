@@ -1,8 +1,8 @@
 package com.master.englishlearningjetpack
 
 import android.app.Application
-import android.os.CountDownTimer
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,10 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -27,7 +26,6 @@ import com.airbnb.lottie.compose.*
 import com.master.englishlearningjetpack.room.DatabaseViewModel
 import com.master.englishlearningjetpack.room.History
 import com.master.englishlearningjetpack.room.ViewModelFactory
-import com.master.englishlearningjetpack.ui.theme.EnglishLearningJetPackTheme
 
 
 var textValues: MutableList<MutableState<String>> = mutableListOf()
@@ -41,15 +39,24 @@ var enValue = ""
 var azValue = ""
 var randomNumber: Int = 0
 var baseMyId: Int = 0
+var defaultEn = true
 lateinit var navControllerBase: NavController
 
 @Composable
 fun questions(navController: NavController, myId: Int) {
 
+    val secilenIndeks = remember {
+        mutableStateOf(0)
+    }
+    val radioButtonListe = listOf("En", "Az", "Oynamiram")
+
     val openWrongDialogValue = remember {
         mutableStateOf(false)
     }
     val refreshDailogValue = remember {
+        mutableStateOf(false)
+    }
+    val oynamiramDailogValue = remember {
         mutableStateOf(false)
     }
 
@@ -71,8 +78,11 @@ fun questions(navController: NavController, myId: Int) {
     if (openWrongDialogValue.value) {
         customDialoq(open = openWrongDialogValue, refreshDailogValue)
     }
-    if (refreshDailogValue.value || true) {
+    if (refreshDailogValue.value) {
         refreshDialog(refreshDailogValue)
+    }
+    if (oynamiramDailogValue.value) {
+        oynamiramDialog(oynamiramDailogValue)
     }
 //    else {
     Column(
@@ -80,6 +90,29 @@ fun questions(navController: NavController, myId: Int) {
             .fillMaxSize()
             .padding(10.dp, 0.dp, 10.dp, 150.dp), verticalArrangement = Arrangement.Bottom
     ) {
+
+
+
+            Column(modifier = Modifier
+                .weight(0.4f)
+                .padding(start = 5.dp, 15.dp)) {
+                radioButtonListe.forEachIndexed { i, sellect ->
+                    Row(/*modifier = Modifier.fillMaxSize()*/) {
+                        RadioButton(
+                            selected = sellect == radioButtonListe[secilenIndeks.value],
+                            onClick = {
+                                        if (i == 2){
+                                            oynamiramDailogValue.value = true
+                                        }else{
+                                            secilenIndeks.value = i
+                                            defaultEn = i == 0
+                                        }})
+                        Text(text = sellect, modifier = Modifier.padding(10.dp))
+                    }
+                }
+            }
+
+
 
         Text(
             text = textValues[4].value,
@@ -144,6 +177,80 @@ fun questions(navController: NavController, myId: Int) {
 }
 
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun oynamiramDialog(open: MutableState<Boolean>) {
+
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error))
+    Dialog(
+        onDismissRequest = { open.value = false }, properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        )
+    ) {
+
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .fillMaxHeight(0.4f), shape = RoundedCornerShape(15.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+//                Box(modifier = Modifier.fillMaxWidth()) {
+
+                    LottieAnimation(
+                        composition = composition,
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier
+                            .padding(top = 15.dp)
+                            .fillMaxWidth(0.6f)
+                            .fillMaxHeight(0.5f)
+                            .align(Alignment.CenterHorizontally)
+
+                    )
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Text(
+                    text = "Yeri Get Dersini Oxu!",
+                    modifier = Modifier
+                        .padding(30.dp, 20.dp, 30.dp, 10.dp)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    color =   Color.White
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxSize(), verticalAlignment = Alignment.Bottom
+                ) {
+
+                    Button(
+                        onClick = {
+                            open.value = false
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(
+                            topStart = 0.dp,
+                            bottomStart = 0.dp,
+                            topEnd = 5.dp
+                        )
+                    ) {
+                        Text(text = "OK")
+                    }
+                }
+
+
+            }
+        }
+    }
+}
+
+
 @Composable
 fun questionCardViewDesign(
     text: String,
@@ -161,11 +268,16 @@ fun questionCardViewDesign(
                 chechValueSetColor(checkBtnPosition = position, open, refreshDailogValue)
             }
             .height(70.dp)
-            .padding(2.dp), backgroundColor = color, shape = RoundedCornerShape(10.dp)
+            .padding(2.dp)
+            .border(0.dp, Transparent),
+        backgroundColor = color,
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(0.dp, Transparent),
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -313,20 +425,20 @@ fun generateGuestions(refreshDailogValue: MutableState<Boolean>) {
 
         sellectDefaultNumber.add(randomNumber)
 
-        textValues[4].value = historyG!![randomNumber].en!!
-        azValue = historyG!![randomNumber].az!!
-        enValue = historyG!![randomNumber].en!!
+        textValues[4].value = checkAzOrEn(!defaultEn , randomNumber)
+        azValue =  checkAzOrEn(defaultEn , randomNumber)
+        enValue =checkAzOrEn(!defaultEn , randomNumber)
 
         answerConum = (0..3).random()
 
         for (i in 0..3) {
             if (answerConum == i) {
-                textValues[i].value = historyG[randomNumber].az!!
+                textValues[i].value =  checkAzOrEn(defaultEn , randomNumber)
             } else {
                 var defaultAnsver: Int
                 do {
                     defaultAnsver = (0..(historyG.count() - 1)).random()
-                    textValues[i].value = historyG[defaultAnsver].az!!
+                    textValues[i].value = checkAzOrEn(defaultEn , defaultAnsver)
                 } while (sellectDefaultNumber.contains(defaultAnsver))
                 sellectDefaultNumber.add(defaultAnsver)
             }
@@ -337,6 +449,12 @@ fun generateGuestions(refreshDailogValue: MutableState<Boolean>) {
 
 }
 
+fun checkAzOrEn(defaultEn:Boolean , id:Int ):String{
+    if (defaultEn) {
+        return historyR.value[id].az!!
+    }
+    return historyR.value[id].en!!
+}
 
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -397,7 +515,11 @@ fun refreshDialog(refreshDailogValue: MutableState<Boolean>) {
                         .fillMaxSize(), verticalAlignment = Alignment.Bottom
                 ) {
                     Button(
-                        onClick = { navControllerBase.navigate("showWord/$baseMyId") },
+                        onClick = {
+                            navControllerBase.navigate("showWord/$baseMyId") {
+                                popUpTo("questions") { inclusive = true }
+                            }
+                        },
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
                             .height(50.dp),
