@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack.room
+package com.master.germanlearningjetpack.room
 
 import android.app.Application
 import android.content.Context
@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 class DatabaseViewModel(application: Application , myId: Int?):AndroidViewModel(application) {
 
     var getAllData = MutableLiveData<List<History>>()
-      var repostory = DatabaseRepostory(application)
+    var repostory = DatabaseRepostory(application)
 
     init {
 //        val  historyDao = MyRoomDatabase.getDatabase(application).historyDao()

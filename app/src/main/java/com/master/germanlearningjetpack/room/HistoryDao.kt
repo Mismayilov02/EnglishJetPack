@@ -1,11 +1,8 @@
-package com.master.englishlearningjetpack.room
+package com.master.germanlearningjetpack.room
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 
 @Dao
 interface HistoryDao {

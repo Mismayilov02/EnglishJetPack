@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack
+package com.master.germanlearningjetpack
 
 import android.app.Application
 import android.widget.Toast
@@ -20,9 +20,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.master.englishlearningjetpack.room.DatabaseViewModel
-import com.master.englishlearningjetpack.room.History
-import com.master.englishlearningjetpack.room.ViewModelFactory
+import com.master.germanlearningjetpack.room.DatabaseViewModel
+import com.master.germanlearningjetpack.room.History
+import com.master.germanlearningjetpack.room.ViewModelFactory
 import java.util.*
 
 

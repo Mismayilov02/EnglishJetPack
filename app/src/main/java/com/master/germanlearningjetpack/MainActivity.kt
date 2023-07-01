@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack
+package com.master.germanlearningjetpack
 
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +24,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.master.englishlearningjetpack.ui.theme.EnglishLearningJetPackTheme
+import com.master.germanlearningjetpack.R
+import com.master.germanlearningjetpack.ui.theme.EnglishLearningJetPackTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack.room
+package com.master.germanlearningjetpack.room
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

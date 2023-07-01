@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack
+package com.master.germanlearningjetpack
 
 import org.junit.Test
 

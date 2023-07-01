@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack
+package com.master.germanlearningjetpack
 
 import android.app.Application
 import androidx.compose.foundation.BorderStroke
@@ -23,9 +23,10 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
-import com.master.englishlearningjetpack.room.DatabaseViewModel
-import com.master.englishlearningjetpack.room.History
-import com.master.englishlearningjetpack.room.ViewModelFactory
+import com.master.germanlearningjetpack.R
+import com.master.germanlearningjetpack.room.DatabaseViewModel
+import com.master.germanlearningjetpack.room.History
+import com.master.germanlearningjetpack.room.ViewModelFactory
 
 
 var textValues: MutableList<MutableState<String>> = mutableListOf()
@@ -48,7 +49,7 @@ fun questions(navController: NavController, myId: Int) {
     val secilenIndeks = remember {
         mutableStateOf(0)
     }
-    val radioButtonListe = listOf("En", "Az", "Oynamiram")
+    val radioButtonListe = listOf("De", "Az", "Oynamiram")
 
     val openWrongDialogValue = remember {
         mutableStateOf(false)

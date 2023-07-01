@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:progressBackgroundTintMode="src_over"
-        android:theme="@style/Theme.EnglishLearningJetPack"
+        android:theme="@style/Theme.GermanLearningJetPack"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EnglishLearningJetPack">
+            android:theme="@style/Theme.GermanLearningJetPack">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

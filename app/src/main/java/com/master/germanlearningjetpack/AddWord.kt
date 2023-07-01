@@ -1,8 +1,7 @@
-package com.master.englishlearningjetpack
+package com.master.germanlearningjetpack
 
 import android.app.Application
 import android.content.Context
-import android.graphics.Paint.Align
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,7 +11,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -25,10 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.master.englishlearningjetpack.room.DatabaseViewModel
-import com.master.englishlearningjetpack.room.History
-import com.master.englishlearningjetpack.room.MyRoomDatabase
-import com.master.englishlearningjetpack.room.ViewModelFactory
+import com.master.germanlearningjetpack.room.DatabaseViewModel
+import com.master.germanlearningjetpack.room.History
+import com.master.germanlearningjetpack.room.ViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -91,7 +88,7 @@ fun addWordScreen(navController: NavController, myId: Int) {
             maxLines = 1,
             label = {
                 Text(
-                    text = "En"
+                    text = "De"
                 )
             },
             colors = TextFieldDefaults.textFieldColors(disabledTextColor = Color.Red)

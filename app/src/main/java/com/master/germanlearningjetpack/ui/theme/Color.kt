@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack.ui.theme
+package com.master.germanlearningjetpack.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

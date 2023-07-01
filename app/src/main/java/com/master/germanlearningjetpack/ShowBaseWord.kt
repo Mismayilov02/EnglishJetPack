@@ -1,8 +1,7 @@
-package com.master.englishlearningjetpack
+package com.master.germanlearningjetpack
 
 import android.app.Application
 import android.content.Context
-import android.support.v4.app.INotificationSideChannel
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,11 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -31,17 +30,16 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.master.englishlearningjetpack.room.DatabaseViewModel
-import com.master.englishlearningjetpack.room.History
-import com.master.englishlearningjetpack.room.ViewModelFactory
-import com.master.englishlearningjetpack.ui.theme.EnglishLearningJetPackTheme
+import com.master.germanlearningjetpack.room.DatabaseViewModel
+import com.master.germanlearningjetpack.room.History
+import com.master.germanlearningjetpack.room.ViewModelFactory
 
 
 var id = 0
 
 @Composable
 fun baseShowWord(navController: NavController) {
-
+    val focusManager = LocalFocusManager.current
     val context = LocalContext.current
     val viewModel: DatabaseViewModel =
         viewModel(factory = ViewModelFactory(context.applicationContext as Application, null))
@@ -72,12 +70,13 @@ fun baseShowWord(navController: NavController) {
                     .padding(15.dp, 10.dp, 15.dp, 0.dp),
                 label = {
                     Text(
-                        text = "Catagory Name", maxLines = 1
+                        text = "Kategoriename", maxLines = 1
                     )
                 })
             Image(painter = painterResource(id = R.drawable.add), contentDescription = "" , modifier = Modifier.padding(top = 10.dp  , start = 10.dp).height(35.dp).align(
                 Alignment.CenterVertically
-            ) )
+            ).clickable {  saveValuesDatabase(newCatagoryName, context, viewModel)
+            focusManager.clearFocus()} )
           /*  Button(
                 onClick = { saveValuesDatabase(newCatagoryName, context, viewModel) },
                 modifier = Modifier

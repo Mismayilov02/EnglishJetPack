@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack.room
+package com.master.germanlearningjetpack.room
 
 import androidx.annotation.Nullable
 import androidx.room.ColumnInfo

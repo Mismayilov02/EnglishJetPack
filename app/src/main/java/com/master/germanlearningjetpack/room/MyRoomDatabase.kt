@@ -1,4 +1,4 @@
-package com.master.englishlearningjetpack.room
+package com.master.germanlearningjetpack.room
 
 import android.content.Context
 import androidx.room.Database

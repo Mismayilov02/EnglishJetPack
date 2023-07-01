@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.master.englishlearningjetpack'
+    namespace 'com.master.germanlearningjetpack'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.master.englishlearningjetpack"
+        applicationId "com.master.germanlearningjetpack"
         minSdk 24
         targetSdk 33
         versionCode 2
