@@ -48,15 +48,12 @@ fun questions(navController: NavController, myId: Int) {
     val secilenIndeks = remember {
         mutableStateOf(0)
     }
-    val radioButtonListe = listOf("En", "Az", "Oynamiram")
+    val radioButtonListe = listOf("En", "Az")
 
     val openWrongDialogValue = remember {
         mutableStateOf(false)
     }
     val refreshDailogValue = remember {
-        mutableStateOf(false)
-    }
-    val oynamiramDailogValue = remember {
         mutableStateOf(false)
     }
 
@@ -72,8 +69,6 @@ fun questions(navController: NavController, myId: Int) {
         viewModel(factory = ViewModelFactory(context.applicationContext as Application, myId))
     historyR = viewModel.getAllData.observeAsState(listOf())
     generateGuestions(refreshDailogValue)
-    /*   if (historyR.value != null)*/
-
 
     if (openWrongDialogValue.value) {
         customDialoq(open = openWrongDialogValue, refreshDailogValue)
@@ -81,17 +76,11 @@ fun questions(navController: NavController, myId: Int) {
     if (refreshDailogValue.value) {
         refreshDialog(refreshDailogValue)
     }
-    if (oynamiramDailogValue.value) {
-        oynamiramDialog(oynamiramDailogValue)
-    }
-//    else {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp, 0.dp, 10.dp, 150.dp), verticalArrangement = Arrangement.Bottom
     ) {
-
-
 
             Column(modifier = Modifier
                 .weight(0.4f)
@@ -101,12 +90,9 @@ fun questions(navController: NavController, myId: Int) {
                         RadioButton(
                             selected = sellect == radioButtonListe[secilenIndeks.value],
                             onClick = {
-                                        if (i == 2){
-                                            oynamiramDailogValue.value = true
-                                        }else{
                                             secilenIndeks.value = i
                                             defaultEn = i == 0
-                                        }})
+                                        })
                         Text(text = sellect, modifier = Modifier.padding(10.dp))
                     }
                 }
@@ -169,87 +155,9 @@ fun questions(navController: NavController, myId: Int) {
                 refreshDailogValue
             )
         }
-//        }
     }
 
-
-//    if (historyR != null) generateGuestions(historyR.value)
 }
-
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun oynamiramDialog(open: MutableState<Boolean>) {
-
-    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error))
-    Dialog(
-        onDismissRequest = { open.value = false }, properties = DialogProperties(
-            usePlatformDefaultWidth = false
-        )
-    ) {
-
-
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(0.7f)
-                .fillMaxHeight(0.4f), shape = RoundedCornerShape(15.dp)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-//                Box(modifier = Modifier.fillMaxWidth()) {
-
-                    LottieAnimation(
-                        composition = composition,
-                        iterations = LottieConstants.IterateForever,
-                        modifier = Modifier
-                            .padding(top = 15.dp)
-                            .fillMaxWidth(0.6f)
-                            .fillMaxHeight(0.5f)
-                            .align(Alignment.CenterHorizontally)
-
-                    )
-
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Text(
-                    text = "Yeri Get Dersini Oxu!",
-                    modifier = Modifier
-                        .padding(30.dp, 20.dp, 30.dp, 10.dp)
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    color =   Color.White
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxSize(), verticalAlignment = Alignment.Bottom
-                ) {
-
-                    Button(
-                        onClick = {
-                            open.value = false
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp),
-                        shape = RoundedCornerShape(
-                            topStart = 0.dp,
-                            bottomStart = 0.dp,
-                            topEnd = 5.dp
-                        )
-                    ) {
-                        Text(text = "OK")
-                    }
-                }
-
-
-            }
-        }
-    }
-}
-
 
 @Composable
 fun questionCardViewDesign(
@@ -462,10 +370,6 @@ fun checkAzOrEn(defaultEn:Boolean , id:Int ):String{
 fun refreshDialog(refreshDailogValue: MutableState<Boolean>) {
 
     val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.guestion))
-//val progresAnimation  by animate
-//    val animationState = rememberLo(autoPlay = true, repeatCount = Integer.MAX_VALUE)
-
-
     Dialog(
         onDismissRequest = { refreshDailogValue.value = false }, properties = DialogProperties(
             usePlatformDefaultWidth = false
@@ -492,15 +396,6 @@ fun refreshDialog(refreshDailogValue: MutableState<Boolean>) {
                             .align(Alignment.Center)
                             .fillMaxHeight(0.4f)
                     )
-//                    Image(
-//                        painter = painterResource(id = R.drawable.guestion),
-//                        contentDescription = "",
-//                        modifier = Modifier
-//                            .padding(25.dp, 50.dp, 25.dp, 5.dp)
-//                            .fillMaxWidth(0.5f)
-//                            .align(Alignment.Center)
-//                            .fillMaxHeight(0.3f), Alignment.Center
-//                    )
                 }
                 Spacer(modifier = Modifier.height(30.dp))
 
